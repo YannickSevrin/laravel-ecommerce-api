@@ -1,19 +1,39 @@
 # Laravel app in /src
 /src/vendor/
 /src/node_modules/
+/src/storage/*.key
 /src/.env
+/src/.env.local
+/src/public/storage
+/src/public/build
+/src/bootstrap/cache/*.php
 
 # Docker
 docker/mysql-data/
-
-# Mac
-.DS_Store
+docker/nginx.conf~
 
 # Logs / IDE
-*.log
-*.lock
 .idea/
 .vscode/
 .cursor/
+.idea/
+.vscode/
+.env
+.env.*
+*.log
+*.sqlite
+*.sqlite3
+
+# 🧼 Cache & builds
+npm-debug.log
+yarn-error.log
+.phpunit.result.cache
+/src/.vite
+
+# 🍃 Mac & OS
+.DS_Store
+Thumbs.db
+
+
 
 roadmap_ecommerce_laravel.txt
