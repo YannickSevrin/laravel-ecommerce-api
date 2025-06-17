@@ -1,0 +1,19 @@
+# Laravel app in /src
+/src/vendor/
+/src/node_modules/
+/src/.env
+
+# Docker
+docker/mysql-data/
+
+# Mac
+.DS_Store
+
+# Logs / IDE
+*.log
+*.lock
+.idea/
+.vscode/
+.cursor/
+
+roadmap_ecommerce_laravel.txt
