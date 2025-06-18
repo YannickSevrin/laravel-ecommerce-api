@@ -17,7 +17,7 @@ This project is a modern, secure, dockerized Laravel e-commerce template ready f
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/laravel-ecommerce-template.git
+git clone https://github.com/YannickSevrin/laravel-ecommerce-template.git
 cd laravel-ecommerce-template
 ```
 
