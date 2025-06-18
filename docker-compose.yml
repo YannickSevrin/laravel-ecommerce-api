@@ -39,5 +39,15 @@ services:
     depends_on:
       - app
 
+  node:
+    image: node:20
+    container_name: node
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "5173:5173"
+    entrypoint: ["tail", "-f", "/dev/null"]
+
 volumes:
   mysql-data:
