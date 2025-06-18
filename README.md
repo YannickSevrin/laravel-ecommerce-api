@@ -9,6 +9,7 @@ This project is a modern, secure, dockerized Laravel e-commerce template ready f
 - Clean architecture (separated routes, middlewares)
 - Docker (PHP, MySQL, NGINX, Node.js)
 - ViteJS + TailwindCSS for frontend
+- Core E-commerce Models: Product, Category, Order, Cart, Address
 - Ready for deployment
 
 ---
@@ -44,8 +45,8 @@ docker-compose exec app composer install
 # 5. Generate application key
 docker-compose exec app php artisan key:generate
 
-# 6. Run database migrations
-docker-compose exec app php artisan migrate
+# 6. Run migrations and seeders
+docker-compose exec app php artisan migrate:fresh --seed
 ```
 
 ---
@@ -103,7 +104,12 @@ $user->save();
 │   └── Dockerfile
 ├── src/
 │   ├── app/
+│   │   ├── Models/         # User, Product, Cart, Order, etc.
+│   │   ├── Http/Controllers/
+│   │   ├── Http/Middleware/
 │   ├── routes/
+│   │   ├── web.php
+│   │   ├── admin.php
 │   ├── resources/
 │   └── ...
 ├── docker-compose.yml
@@ -116,5 +122,6 @@ $user->save();
 
 - Admin dashboard with statistics
 - Stripe payment
-- Filtered catalog
+- Filtered product catalog
 - Email notifications
+- Product CRUD (Admin)
