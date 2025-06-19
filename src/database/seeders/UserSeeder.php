@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // Clients
+        // Customers
         User::factory()->count(4)->create([
-            'role' => 'client',
+            'role' => 'customer',
         ]);
     }
 }
