@@ -10,11 +10,11 @@ class OrderSeeder extends Seeder
 {
     public function run(): void
     {
-        $clients = User::where('role', 'client')->pluck('id');
+        $customers = User::where('role', 'customer')->pluck('id');
 
         foreach (range(1, 10) as $i) {
             Order::create([
-                'user_id' => $clients->random(),
+                'user_id' => $customers->random(),
                 'total' => fake()->randomFloat(2, 20, 300),
                 'status' => fake()->randomElement(['pending', 'paid', 'shipped']),
                 'created_at' => now()->subDays(rand(1, 365)),
