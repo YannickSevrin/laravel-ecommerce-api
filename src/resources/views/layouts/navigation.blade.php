@@ -37,7 +37,12 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
+                        <x-dropdown-link href="{{ route('my-orders.index') }}">
+                            🧾 My Orders
+                        </x-dropdown-link>
+                        <x-dropdown-link href="{{ route('profile.addresses.index') }}">
+                            📍 My Addresses
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
