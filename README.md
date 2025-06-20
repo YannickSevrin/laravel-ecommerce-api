@@ -9,8 +9,10 @@ This project is a modern, secure, dockerized Laravel e-commerce template ready f
 - Clean architecture (separated routes, middlewares)
 - Docker (PHP, MySQL, NGINX, Node.js)
 - ViteJS + TailwindCSS for frontend
-- Core E-commerce Models: Product, Category, Order, Cart, Address
 - Admin Dashboard with CRUDs (Product, Category, Order, User)
+- Full Checkout Flow (Cart → Order + Address)
+- Order confirmation email & thank you page
+- Profile-based address management
 - Ready for deployment
 
 ---
@@ -88,6 +90,11 @@ $user->save();
   - View and update orders
   - Manage users and roles
   - View admin statistics
+- Customer:
+  - View cart: `/cart`
+  - Checkout: `/checkout`
+  - Order history: `/my-orders`
+  - Address management: `/profile/addresses`
 
 ---
 
@@ -99,6 +106,7 @@ $user->save();
 - TailwindCSS
 - Docker (php-fpm, nginx, mysql, node)
 - Custom middleware (`isAdmin`)
+- Laravel Mailables
 
 ---
 
@@ -110,20 +118,20 @@ $user->save();
 │   └── Dockerfile
 ├── src/
 │   ├── app/
-│   │   ├── Models/         # User, Product, Cart, Order, etc.
-│   │   ├── Http/Controllers/Admin/ # Separated admin logic
-│   │   ├── Http/Middleware/
+│   │   ├── Models/         # User, Product, Cart, Order, Address
+│   │   ├── Http/Controllers/Admin/
+│   │   ├── Http/Controllers/Profile/
+│   │   ├── Http/Controllers/
 │   ├── routes/
 │   │   ├── web.php
 │   │   ├── admin.php
 │   ├── resources/
 │   │   ├── views/
 │   │   │   ├── admin/
-│   │   │   │   ├── dashboard.blade.php
-│   │   │   │   ├── products/
-│   │   │   │   ├── categories/
-│   │   │   │   ├── orders/
-│   │   │   │   ├── users/
+│   │   │   ├── cart/
+│   │   │   ├── checkout/
+│   │   │   ├── my-orders/
+│   │   │   ├── profile/addresses/
 │   └── ...
 ├── docker-compose.yml
 └── README.md
@@ -131,19 +139,29 @@ $user->save();
 
 ---
 
-## ✅ Completed Admin Features
+## ✅ Completed Features
 
-- Admin dashboard with live statistics
-- Product management (CRUD)
-- Category management (CRUD)
-- Order management (view & status update)
-- User management (list, edit roles)
+### Admin
+- Dashboard with live statistics
+- Product CRUD
+- Category CRUD
+- Order view + status update
+- User role management
+
+### Client
+- Cart (DB-stored)
+- Checkout flow with address selection
+- Order creation + storage
+- Email confirmation
+- Thank you page
+- Order history
+- Address management with default shipping address
 
 ---
 
 ## 🛠 Coming Soon
 
-- Frontend cart and checkout
 - Stripe payment integration
-- Filtered product catalog
-- Email notifications
+- Product filtering and search
+- Order PDF invoice export
+- Admin notifications

@@ -21,6 +21,7 @@ class AddressSeeder extends Seeder
                     'city' => fake()->city(),
                     'postal_code' => fake()->postcode(),
                     'country' => fake()->country(),
+                    'is_default' => $type === 'shipping' ? true : false,
                 ]);
             }
         }
