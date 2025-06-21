@@ -1,4 +1,4 @@
-<form action="{{ $route }}" method="POST" class="space-y-4">
+<form action="{{ $route }}" method="POST" enctype="multipart/form-data" class="space-y-4">
     @csrf
     @if ($method === 'PUT')
         @method('PUT')
@@ -29,6 +29,11 @@
     <div>
         <label class="block">Description</label>
         <textarea name="description" class="border rounded w-full p-2">{{ old('description', $product->description ?? '') }}</textarea>
+    </div>
+
+    <div>
+        <label class="block">Image</label>
+        <input type="file" name="image" class="border rounded w-full p-2">
     </div>
 
     <div>
