@@ -6,10 +6,14 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\MyOrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Profile\AddressController;
+use App\Http\Controllers\ShopController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/product/{product}', [ShopController::class, 'show'])->name('shop.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
