@@ -1,3 +1,4 @@
+
 # 🛍️ Laravel E-commerce Template
 
 This project is a modern, secure, dockerized Laravel e-commerce template ready for production.
@@ -13,6 +14,8 @@ This project is a modern, secure, dockerized Laravel e-commerce template ready f
 - Full Checkout Flow (Cart → Order + Address)
 - Order confirmation email & thank you page
 - Profile-based address management
+- Product catalog with filters, price range, category and search
+- Image upload for products
 - Ready for deployment
 
 ---
@@ -84,6 +87,7 @@ $user->save();
 
 - Front: [http://localhost:8000](http://localhost:8000)
 - Login/Register: `/login`, `/register`
+- Shop: `/shop`
 - Admin dashboard: `/admin/dashboard`
   - Manage products
   - Manage categories
@@ -132,6 +136,7 @@ $user->save();
 │   │   │   ├── checkout/
 │   │   │   ├── my-orders/
 │   │   │   ├── profile/addresses/
+│   │   │   ├── shop/
 │   └── ...
 ├── docker-compose.yml
 └── README.md
@@ -156,12 +161,14 @@ $user->save();
 - Thank you page
 - Order history
 - Address management with default shipping address
+- Product listing in `/shop`
+- Category filters, price range filter, and keyword search
+- Product detail with image upload
 
 ---
 
 ## 🛠 Coming Soon
 
 - Stripe payment integration
-- Product filtering and search
 - Order PDF invoice export
 - Admin notifications

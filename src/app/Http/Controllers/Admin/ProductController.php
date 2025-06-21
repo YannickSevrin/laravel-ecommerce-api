@@ -28,7 +28,13 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'nullable|exists:categories,id',
             'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $filename = $request->file('image')->store('products', 'public');
+            $validated['image'] = $filename;
+        }
 
         Product::create($validated);
         return redirect()->route('admin.products.index')->with('success', 'Product created!');
@@ -47,7 +53,13 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'nullable|exists:categories,id',
             'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $filename = $request->file('image')->store('products', 'public');
+            $validated['image'] = $filename;
+        }
 
         $product->update($validated);
         return redirect()->route('admin.products.index')->with('success', 'Product updated!');
