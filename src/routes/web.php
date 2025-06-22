@@ -1,54 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\MyOrderController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\Profile\AddressController;
-use App\Http\Controllers\ShopController;
 
+// Basic route for API documentation or status
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json([
+        'message' => 'Laravel E-commerce API',
+        'version' => '1.0.0',
+        'documentation' => '/api/documentation',
+        'status' => 'running'
+    ]);
 });
 
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/product/{product}', [ShopController::class, 'show'])->name('shop.show');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    // Dashboard (facultatif)
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    // 🔐 Profile routes
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // 📦 Cart routes
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-
-    // 🧾 My orders routes
-    Route::get('/my-orders', [MyOrderController::class, 'index'])->name('my-orders.index');
-    Route::get('/my-orders/{order}', [MyOrderController::class, 'show'])->name('my-orders.show');
-
-    // ✅ Checkout routes
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-    Route::get('/thank-you', fn () => view('checkout.thank-you'))->name('checkout.thank-you');
-
-    // 📍 Address management (in profile)
-    Route::prefix('profile')->name('profile.')->group(function () {
-        Route::resource('addresses', AddressController::class)->except(['show', 'edit']);
-        Route::post('addresses/{address}/default', [AddressController::class, 'setDefault'])->name('addresses.default');
-    });
+// Health check endpoint
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'OK',
+        'timestamp' => now()->toISOString()
+    ]);
 });
-
-require __DIR__.'/auth.php';
-require __DIR__.'/customer.php';
-require __DIR__.'/admin.php';
