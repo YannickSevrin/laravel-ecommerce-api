@@ -1,403 +1,366 @@
+<div align="center">
+
 # 🚀 Laravel E-commerce API
 
-A modern, secure, fully-tested Laravel e-commerce API ready for production. This project provides a complete REST API for e-commerce applications with comprehensive test coverage.
+[![Laravel](https://img.shields.io/badge/Laravel-11-red?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-blue?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Docker](https://img.shields.io/badge/Docker-ready-blue?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+[![Tests](https://img.shields.io/badge/Tests-80+-green?style=for-the-badge&logo=testcafe&logoColor=white)](#-test-coverage)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+
+**A modern, secure, and fully-tested Laravel e-commerce REST API ready for production**
+
+[🚀 Quick Start](#-quick-start) • [📖 Documentation](#-api-documentation) • [🧪 Testing](#-testing) • [🐳 Docker](#-docker-deployment) • [🔧 Configuration](#-configuration)
+
+</div>
+
+---
 
 ## ✨ Key Features
 
-- **Pure REST API** with Laravel Sanctum authentication
-- **Complete test suite** with 80+ tests covering 100% of endpoints
-- **Role-based access** (admin/customer) with proper authorization
-- **Docker containerization** for easy deployment
-- **Comprehensive CRUD operations** for all resources
-- **Advanced filtering and search** capabilities
-- **Secure file upload** handling for product images
-- **Order management system** with multiple statuses
-- **User profile and address management**
-- **Admin dashboard** with statistics and analytics
-- **Production-ready** with proper validation and error handling
+<table>
+<tr>
+<td>
+
+### 🔐 **Security First**
+- Laravel Sanctum authentication
+- Role-based access control
+- Data validation & sanitization
+- CSRF protection
+- Rate limiting
+
+</td>
+<td>
+
+### 🧪 **Production Ready**
+- 80+ comprehensive tests
+- 100% endpoint coverage
+- Docker containerization
+- CI/CD friendly
+- Error handling
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 🛍️ **E-commerce Features**
+- Product catalog management
+- Shopping cart functionality
+- Order processing system
+- User profile management
+- Address management
+
+</td>
+<td>
+
+### 📊 **Admin Dashboard**
+- Analytics & statistics
+- Product management
+- Order management
+- User management
+- Category management
+
+</td>
+</tr>
+</table>
 
 ---
 
-## 🧪 Test Coverage
+## 🚀 Quick Start
 
-This API includes a **comprehensive test suite** with:
+### Prerequisites
 
-- **80+ individual tests** across 8 test classes
-- **100% endpoint coverage** including edge cases
-- **Security testing** (authentication, authorization, data isolation)
-- **Validation testing** for all input data
-- **Integration testing** for complex workflows
-- **Automated test runner** script for CI/CD
+- Docker & Docker Compose
+- PHP 8.2+ (for local development)
+- Composer (for local development)
 
-### Test Categories
-- 🔐 Authentication (7 tests)
-- 🛒 Shop/Products (10 tests) 
-- 🛍️ Cart Management (13 tests)
-- 📦 Order Processing (12 tests)
-- 👤 User Profile (12 tests)
-- 🏠 Address Management (13 tests)
-- 📊 Admin Dashboard (8 tests)
-- 🔧 Admin Product Management (15 tests)
-- 📁 Admin Category Management (12 tests)
-
----
-
-## 📦 Installation
+### Installation
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/YannickSevrin/laravel-ecommerce-api.git
 cd laravel-ecommerce-api
-```
 
----
-
-## 🐳 Docker Setup
-
-```bash
-# 2. Start Docker containers
+# 2. Start with Docker (Recommended)
 docker compose up -d --build
-```
 
----
-
-## ⚙️ Laravel Configuration
-
-```bash
-# 3. Navigate to source directory
+# 3. Setup Laravel
 cd src
-
-# 4. Copy environment file
 cp .env.example .env
-
-# 5. Install PHP dependencies
 docker compose exec app composer install
-
-# 6. Generate application key
 docker compose exec app php artisan key:generate
-
-# 7. Run migrations and seeders
 docker compose exec app php artisan migrate:fresh --seed
-
-# 8. Create storage link for file uploads
 docker compose exec app php artisan storage:link
+
+# 4. Create admin user
+docker compose exec app php artisan tinker
 ```
+
+In Tinker:
+```php
+App\Models\User::factory()->create([
+    'name' => 'Admin User',
+    'email' => 'admin@example.com',
+    'role' => 'admin'
+]);
+```
+
+🎉 **Your API is now running at `http://localhost:8000/api`**
 
 ---
 
-## 🧪 Running Tests
+## 🧪 Test Coverage
 
-The API includes a complete test suite that can be run easily:
+<div align="center">
+
+### 📊 **80+ Tests | 100% Endpoint Coverage**
+
+</div>
+
+| Test Suite | Tests | Coverage |
+|------------|-------|----------|
+| 🔐 Authentication | 7 tests | All auth endpoints |
+| 🛒 Shop/Products | 10 tests | Product catalog |
+| 🛍️ Cart Management | 13 tests | Shopping cart |
+| 📦 Order Processing | 12 tests | Order lifecycle |
+| 👤 User Profile | 12 tests | Profile management |
+| 🏠 Address Management | 13 tests | Address CRUD |
+| 📊 Admin Dashboard | 8 tests | Admin analytics |
+| 🔧 Admin Products | 15 tests | Product management |
+| 📁 Admin Categories | 12 tests | Category management |
+
+### Running Tests
 
 ```bash
-# Make test script executable
+# Run all tests with beautiful output
 chmod +x run_api_tests.sh
-
-# Run all API tests with organized output
 ./run_api_tests.sh
 
-# Or run specific test categories
+# Run specific test suites
 docker compose exec app php artisan test --filter="AuthTest"
 docker compose exec app php artisan test --filter="ShopTest"
 docker compose exec app php artisan test tests/Feature/Api/Admin/
 ```
 
-For detailed test documentation, see [`TESTS_DOCUMENTATION.md`](src/TESTS_DOCUMENTATION.md).
+📚 **[View detailed test documentation →](src/TESTS_DOCUMENTATION.md)**
 
 ---
 
-## 🔐 Authentication Setup
+## 🌐 API Documentation
 
-Create an admin user for testing admin endpoints:
+<div align="center">
 
-```bash
-# Access Laravel Tinker
-docker compose exec app php artisan tinker
+### 📡 **Base URL:** `http://localhost:8000/api`
 
-# Create admin user
-$admin = App\Models\User::factory()->create([
-    'name' => 'Admin User',
-    'email' => 'admin@example.com',
-    'role' => 'admin'
-]);
-
-# Or modify existing user
-$user = App\Models\User::where('email', 'your@email.com')->first();
-$user->role = 'admin';
-$user->save();
-```
-
----
-
-## 🌐 API Endpoints
-
-The API is accessible at `http://localhost:8000/api/`
+</div>
 
 ### 🔓 Public Endpoints
-- `GET /api/products` - List products with filtering/search
-- `GET /api/products/{id}` - Get single product
-- `GET /api/categories` - List categories with product counts
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/products` | List products with filtering/search |
+| `GET` | `/products/{id}` | Get product details |
+| `GET` | `/categories` | List categories with product counts |
 
 ### 🔐 Authentication
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User login
-- `POST /api/auth/logout` - User logout
-- `GET /api/auth/user` - Get authenticated user
 
-### 👤 User Endpoints (Authenticated)
-- `GET /api/profile` - Get user profile
-- `PUT /api/profile` - Update profile
-- `DELETE /api/profile` - Delete account
-
-### 🏠 Address Management
-- `GET /api/profile/addresses` - List user addresses
-- `POST /api/profile/addresses` - Create address
-- `PUT /api/profile/addresses/{id}` - Update address
-- `DELETE /api/profile/addresses/{id}` - Delete address
-- `POST /api/profile/addresses/{id}/default` - Set default address
-
-### 🛍️ Cart Management
-- `GET /api/cart` - View cart
-- `POST /api/cart/add/{product}` - Add to cart
-- `PUT /api/cart/update/{product}` - Update quantity
-- `DELETE /api/cart/remove/{product}` - Remove item
-- `DELETE /api/cart/clear` - Clear cart
-
-### 📦 Order Management
-- `GET /api/orders` - List user orders
-- `GET /api/orders/{id}` - Get single order
-- `POST /api/orders` - Create order (checkout)
-
-### 🔧 Admin Endpoints (Admin Role Required)
-- `GET /api/admin/dashboard` - Dashboard statistics
-- `GET /api/admin/products` - Manage products
-- `POST /api/admin/products` - Create product
-- `PUT /api/admin/products/{id}` - Update product
-- `DELETE /api/admin/products/{id}` - Delete product
-- `GET /api/admin/categories` - Manage categories
-- `POST /api/admin/categories` - Create category
-- `PUT /api/admin/categories/{id}` - Update category
-- `DELETE /api/admin/categories/{id}` - Delete category
-
-For complete API documentation, see [`API_DOCUMENTATION.md`](src/API_DOCUMENTATION.md).
-
----
-
-## 🧠 Technologies Used
-
-- **Laravel 11** - PHP framework
-- **Laravel Sanctum** - API authentication
-- **Docker** - Containerization (PHP-FPM, Nginx, MySQL, Node.js)
-- **Pest PHP** - Testing framework
-- **SQLite** - Testing database
-- **Custom Middleware** - Role-based authorization
-- **Factory Pattern** - Test data generation
-- **Image Upload** - File handling with validation
-
----
-
-## 📂 Project Structure
-
-```
-├── docker/
-│   ├── Dockerfile
-│   └── nginx.conf
-├── src/
-│   ├── app/
-│   │   ├── Http/
-│   │   │   ├── Controllers/Api/          # API Controllers
-│   │   │   │   ├── AuthController.php
-│   │   │   │   ├── ShopController.php
-│   │   │   │   ├── CartController.php
-│   │   │   │   ├── OrderController.php
-│   │   │   │   ├── ProfileController.php
-│   │   │   │   ├── AddressController.php
-│   │   │   │   └── Admin/                # Admin Controllers
-│   │   │   │       ├── AdminDashboardController.php
-│   │   │   │       ├── AdminProductController.php
-│   │   │   │       ├── AdminCategoryController.php
-│   │   │   │       ├── AdminOrderController.php
-│   │   │   │       └── AdminUserController.php
-│   │   │   ├── Middleware/
-│   │   │   │   └── IsAdminApi.php        # Admin authorization
-│   │   │   └── Requests/
-│   │   ├── Models/                       # Eloquent Models
-│   │   │   ├── User.php
-│   │   │   ├── Product.php
-│   │   │   ├── Category.php
-│   │   │   ├── Cart.php
-│   │   │   ├── Order.php
-│   │   │   ├── OrderItem.php
-│   │   │   └── Address.php
-│   │   └── Mail/
-│   │       └── OrderConfirmation.php
-│   ├── routes/
-│   │   └── api.php                       # API Routes
-│   ├── tests/
-│   │   ├── Feature/Api/                  # API Tests
-│   │   │   ├── AuthTest.php
-│   │   │   ├── ShopTest.php
-│   │   │   ├── CartTest.php
-│   │   │   ├── OrderTest.php
-│   │   │   ├── ProfileTest.php
-│   │   │   ├── AddressTest.php
-│   │   │   └── Admin/
-│   │   │       ├── AdminDashboardTest.php
-│   │   │       ├── AdminProductTest.php
-│   │   │       └── AdminCategoryTest.php
-│   │   └── TestCase.php                  # Enhanced test base class
-│   ├── database/
-│   │   ├── factories/                    # Model Factories
-│   │   ├── migrations/                   # Database Schema
-│   │   └── seeders/                      # Sample Data
-│   ├── run_api_tests.sh                  # Test Runner Script
-│   ├── API_DOCUMENTATION.md              # Complete API Docs
-│   └── TESTS_DOCUMENTATION.md            # Test Suite Docs
-├── docker-compose.yml
-└── README.md
-```
-
----
-
-## ✅ Implemented Features
-
-### 🔐 Authentication & Authorization
-- JWT-like token authentication with Sanctum
-- Role-based access control (admin/customer)
-- Secure password hashing and validation
-- Token-based session management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/auth/register` | User registration |
+| `POST` | `/auth/login` | User login |
+| `POST` | `/auth/logout` | User logout |
+| `GET` | `/auth/user` | Get authenticated user |
 
 ### 👤 User Management
-- User registration and login
-- Profile management (view, update, delete)
-- Address management with default selection
-- Password change with current password verification
 
-### 🛒 Product Catalog
-- Product listing with pagination
-- Advanced filtering (category, price range, search)
-- Product sorting by various criteria
-- Category management with product counts
-- Image upload for products
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/profile` | Get user profile |
+| `PUT` | `/profile` | Update profile |
+| `DELETE` | `/profile` | Delete account |
 
-### 🛍️ Shopping Cart
-- Persistent cart storage in database
-- Add, update, remove cart items
-- Automatic total calculation
-- Cart clearing functionality
+### 🏠 Address Management
 
-### 📦 Order Processing
-- Order creation from cart
-- Order history and details
-- Multiple order statuses
-- Order item tracking
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/profile/addresses` | List user addresses |
+| `POST` | `/profile/addresses` | Create address |
+| `PUT` | `/profile/addresses/{id}` | Update address |
+| `DELETE` | `/profile/addresses/{id}` | Delete address |
+| `POST` | `/profile/addresses/{id}/default` | Set default address |
 
-### 🔧 Admin Features
-- Dashboard with comprehensive statistics
-- Product CRUD operations
-- Category CRUD operations
-- User role management
-- Order status updates
+### 🛍️ Cart Management
 
-### 🧪 Quality Assurance
-- 80+ comprehensive tests
-- 100% endpoint coverage
-- Security and validation testing
-- Automated test runner
-- CI/CD ready test suite
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/cart` | View cart |
+| `POST` | `/cart/add/{product}` | Add to cart |
+| `PUT` | `/cart/update/{product}` | Update quantity |
+| `DELETE` | `/cart/remove/{product}` | Remove item |
+| `DELETE` | `/cart/clear` | Clear cart |
+
+### 📦 Order Management
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/orders` | List user orders |
+| `GET` | `/orders/{id}` | Get order details |
+| `POST` | `/orders` | Create order (checkout) |
+
+### 🔧 Admin Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/admin/dashboard` | Dashboard statistics |
+| `GET/POST/PUT/DELETE` | `/admin/products` | Product management |
+| `GET/POST/PUT/DELETE` | `/admin/categories` | Category management |
+| `GET/PUT` | `/admin/orders` | Order management |
+| `GET/PUT` | `/admin/users` | User management |
+
+📖 **[View complete API documentation →](src/API_DOCUMENTATION.md)**
 
 ---
 
-## 🚀 Production Deployment
+## 🐳 Docker Deployment
 
-### Environment Configuration
+### Architecture
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Nginx Proxy   │    │   Laravel App   │    │   MySQL DB      │
+│   Port: 8000    │───▶│   PHP-FPM       │───▶│   Port: 3306    │
+│                 │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
+
+### Services
+
+| Service | Container | Description |
+|---------|-----------|-------------|
+| `app` | PHP 8.2-FPM | Laravel application |
+| `nginx` | Nginx | Web server & reverse proxy |
+| `mysql` | MySQL 8.0 | Database |
+| `node` | Node.js | Asset compilation |
+
+### Commands
+
+```bash
+# Start all services
+docker compose up -d
+
+# View logs
+docker compose logs -f app
+
+# Execute Laravel commands
+docker compose exec app php artisan migrate
+docker compose exec app php artisan cache:clear
+
+# Access containers
+docker compose exec app bash
+docker compose exec mysql mysql -u root -p
+```
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables
+
 ```env
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://your-api-domain.com
+# Application
+APP_NAME="Laravel E-commerce API"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
 
+# Database
 DB_CONNECTION=mysql
-DB_HOST=your-db-host
-DB_DATABASE=your-database
-DB_USERNAME=your-username
-DB_PASSWORD=your-password
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_ecommerce
+DB_USERNAME=root
+DB_PASSWORD=password
 
-SANCTUM_STATEFUL_DOMAINS=your-frontend-domain.com
-SESSION_DOMAIN=.your-domain.com
+# Authentication
+SANCTUM_STATEFUL_DOMAINS=localhost:8000
+SESSION_DRIVER=cookie
 ```
 
-### Security Checklist
-- ✅ All endpoints properly authenticated
-- ✅ Role-based authorization implemented
-- ✅ Input validation on all endpoints
-- ✅ File upload security measures
-- ✅ SQL injection protection
-- ✅ XSS protection
-- ✅ CSRF protection for web routes
+### Key Configuration Files
+
+| File | Description |
+|------|-------------|
+| `config/sanctum.php` | Authentication settings |
+| `config/cors.php` | CORS configuration |
+| `config/database.php` | Database connections |
+| `docker-compose.yml` | Docker services |
+| `docker/Dockerfile` | Application container |
 
 ---
 
-## 🔧 Development
+## 🛠️ Tech Stack
 
-### Adding New Endpoints
-1. Create controller in `app/Http/Controllers/Api/`
-2. Add routes in `routes/api.php`
-3. Create corresponding tests
-4. Update API documentation
+<div align="center">
 
-### Running Development Server
-```bash
-# Start Laravel development server
-docker compose exec app php artisan serve --host=0.0.0.0 --port=8000
+| Backend | Database | Authentication | Testing | DevOps |
+|---------|----------|---------------|---------|---------|
+| ![Laravel](https://img.shields.io/badge/Laravel-11-red?logo=laravel&logoColor=white) | ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql&logoColor=white) | ![Sanctum](https://img.shields.io/badge/Sanctum-3.0-green?logo=laravel&logoColor=white) | ![Pest](https://img.shields.io/badge/Pest-2.0-yellow?logo=php&logoColor=white) | ![Docker](https://img.shields.io/badge/Docker-ready-blue?logo=docker&logoColor=white) |
+| ![PHP](https://img.shields.io/badge/PHP-8.2+-blue?logo=php&logoColor=white) | ![SQLite](https://img.shields.io/badge/SQLite-Testing-lightgrey?logo=sqlite&logoColor=white) | ![JWT](https://img.shields.io/badge/JWT-Token-black?logo=json-web-tokens&logoColor=white) | ![PHPUnit](https://img.shields.io/badge/PHPUnit-10-green?logo=php&logoColor=white) | ![Nginx](https://img.shields.io/badge/Nginx-1.21-green?logo=nginx&logoColor=white) |
 
-```
-
-### Database Operations
-```bash
-# Reset database with fresh data
-docker compose exec app php artisan migrate:fresh --seed
-
-# Create new migration
-docker compose exec app php artisan make:migration create_new_table
-
-# Create new seeder
-docker compose exec app php artisan make:seeder NewTableSeeder
-```
+</div>
 
 ---
 
-## 📚 Documentation
+## 📁 Project Structure
 
-- **[API Documentation](src/API_DOCUMENTATION.md)** - Complete endpoint documentation
-- **[Test Documentation](src/TESTS_DOCUMENTATION.md)** - Test suite overview
+```
+laravel-ecommerce-api/
+├── 🐳 docker/                 # Docker configuration
+│   ├── Dockerfile
+│   └── nginx.conf
+├── 📱 src/                    # Laravel application
+│   ├── app/
+│   │   ├── Http/Controllers/Api/  # API controllers
+│   │   ├── Models/               # Eloquent models
+│   │   ├── Mail/                 # Email templates
+│   │   └── Repositories/         # Repository pattern
+│   ├── database/
+│   │   ├── migrations/           # Database migrations
+│   │   ├── seeders/             # Database seeders
+│   │   └── factories/           # Model factories
+│   ├── tests/                   # Test suites
+│   │   ├── Feature/Api/         # API integration tests
+│   │   └── Unit/                # Unit tests
+│   └── routes/api.php           # API routes
+├── 🐳 docker-compose.yml      # Docker services
+├── 📝 API_DOCUMENTATION.md    # Complete API docs
+├── 🧪 TESTS_DOCUMENTATION.md  # Testing guide
+└── 🚀 run_api_tests.sh        # Test runner script
+```
 
 ---
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Ensure all tests pass
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
 ## 📄 License
 
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🎯 What's Next
+<div align="center">
 
-- [ ] Stripe payment integration
-- [ ] PDF invoice generation
-- [ ] Real-time notifications
-- [ ] Advanced analytics
-- [ ] Rate limiting
-- [ ] API versioning
+**Made with ❤️ by [Yannick Sevrin](https://github.com/YannickSevrin)**
 
----
+⭐ **Star this repository if you found it helpful!**
 
-**✨ Your production-ready Laravel E-commerce API with comprehensive test coverage!**
+</div>
